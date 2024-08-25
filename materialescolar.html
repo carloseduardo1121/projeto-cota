@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./materialEscolar/materialescolar.css">
+    <title>Consulta de Material Escolar</title>
+</head>
+<body>
+    <a href="./HTML5.html">
+        <img src="./Fundos/logo cota preço sem escrita png.png" alt="logo do site" height="150px" width="150px" id="logo">
+        </a>
+    
+
+    <h1>Consulta de Material Escolar</h1>
+
+    <form>
+        <label for="material">Digite o material desejado:</label>
+        <input type="text" id="material" name="material" placeholder="Digite o nome do material" required>
+
+        <button type="button" onclick="consultarMaterial()">Consultar</button>
+    </form>
+
+    <div id="resultado"></div>
+
+    <script>
+        function consultarMaterial() {
+            var material = document.getElementById('material').value.toLowerCase();
+            var precos = {
+                caneta: [
+                    { preco: 1.50, estabelecimento: "Rabispel", localidade: "Registro" },
+                    { preco: 2.00, estabelecimento: "Lord Papelaria", localidade: "São Bernardo do Campo" }
+                ],
+                caderno: [
+                    { preco: 24.00, estabelecimento: "Rabispel", localidade: "Registro" },
+                    { preco: 30.00, estabelecimento: "Papelaria Matriz", localidade: "São Paulo" }
+                ],
+                borracha: [
+                    { preco: 4.00, estabelecimento: "Rabispel", localidade: "Cidade" },
+                    { preco: 5.00, estabelecimento: "Boizito Papelaria", localidade: "São Paulo" }
+                ],
+                lápis: [
+                    { preco: 1.50, estabelecimento: "Rabispel", localidade: "Registro" },
+                    { preco: 2.00, estabelecimento: "Material Legal", localidade: "Itanhaém" }
+                ],
+                apontador: [
+                    { preco: 5.00, estabelecimento: "Rabispel", localidade: "Registro" },
+                    { preco: 8.50, estabelecimento: "Master Materiais Escolares", localidade: "São Paulo" }
+                ],
+                cola: [
+                    { preco: 6.00, estabelecimento: "Rabispel", localidade: "Registro" },
+                    { preco: 7.50, estabelecimento: "Papel Mania Forte", localidade: "Praia Grande" }
+                ],
+                régua: [
+                    { preco: 3.00, estabelecimento: "Rabispel", localidade: "Registro" },
+                    { preco: 3.50, estabelecimento: "Tiger Papelaria e Presentes", localidade: "Mauá" }
+                ],
+                "lápis de cor": [
+                    { preco: 15.00, estabelecimento: "Rabispel", localidade: "Registro" },
+                    { preco: 18.50, estabelecimento: "Kalunga", localidade: "Anápolis" }
+                ],
+                compasso: [
+                    { preco: 10.00, estabelecimento: "Rabispel", localidade: "Registro" },
+                    { preco: 14.00, estabelecimento: "Loja Kuma Perus", localidade: "São Paulo" }
+                ],
+                corretivo: [
+                    { preco: 8.00, estabelecimento: "Rabispel", localidade: "Registro" },
+                    { preco: 9.00, estabelecimento: "Lana Papelaria", localidade: "Registro" }
+                ],
+                "marca-texto": [
+                    { preco: 4.00, estabelecimento: "Rabispel", localidade: "Registro" },
+                    { preco: 3.50, estabelecimento: "Papelaria Omuro", localidade: "Registro" }
+                ],
+                tesoura: [
+                    { preco: 5.60, estabelecimento: "Rabispel", localidade: "Registro" },
+                    { preco: 6.00, estabelecimento: "Mel Bazar e Papelaria", localidade: "Registro" }
+                ]
+            };
+
+            if (precos[material] !== undefined) {
+                var resultado = "Custo de " + material + ":<br>";
+
+                // Verifica se o material é uma lista (múltiplos estabelecimentos)
+                if (Array.isArray(precos[material])) {
+                    for (var i = 0; i < precos[material].length; i++) {
+                        resultado += " - Estabelecimento: " + precos[material][i].estabelecimento +
+                                     ", Localidade: " + precos[material][i].localidade +
+                                     ", Preço: R$ " + precos[material][i].preco.toFixed(2) + "<br>";
+                    }
+                } else {
+                    resultado += " - Estabelecimento: " + precos[material].estabelecimento +
+                                 ", Localidade: " + precos[material].localidade +
+                                 ", Preço: R$ " + precos[material].preco.toFixed(2) + "<br>";
+                }
+
+                document.getElementById('resultado').innerHTML = resultado;
+            } else {
+                document.getElementById('resultado').innerHTML = "Material não encontrado.";
+            }
+        }
+    </script>
+
+</body>
+</html>

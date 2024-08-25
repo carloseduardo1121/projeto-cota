@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./Padaria/padaria.css">
+    <title>Consulta de Produtos</title>
+    
+</head>
+<body>
+    <a href="./HTML5.html">
+        <img src="./Fundos/logo cota preço sem escrita png.png" alt="logo do site" height="150px" width="150px" id="logo">
+        </a>
+    <div class="box">
+    <h1>Consulta de Produtos da Padaria</h1>
+
+    <label for="searchInput">Buscar Produto:</label>
+    <input type="text" id="searchInput" placeholder="Digite o nome do produto">
+    <button onclick="searchProducts()">Buscar</button>
+    </div>
+    <div id="resultContainer"></div>
+
+    <script>
+        // Dados de exemplo (pode ser substituído por uma chamada a uma API)
+        const products = [
+            { id: 1, name: 'Pao - Supermercado da Ilha - Miracatu', price: 5.99 },
+            { id: 2, name: 'Empada', price: 3.49 },
+            { id: 3, name: 'pao de queijo', price: 2.99 },
+            // Adicione mais produtos conforme necessário
+        ];
+
+        function searchProducts() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.innerHTML = '';
+
+            const filteredProducts = products.filter(product => product.name.toLowerCase().includes(searchInput));
+
+            if (filteredProducts.length > 0) {
+                filteredProducts.forEach(product => {
+                    const productDiv = document.createElement('div');
+                    productDiv.classList.add('product');
+                    productDiv.innerHTML = `<strong>${product.name}</strong> - R$ ${product.price.toFixed(2)}`;
+                    resultContainer.appendChild(productDiv);
+                });
+            } else {
+                resultContainer.innerHTML = 'Nenhum produto encontrado.';
+            }
+        }
+    </script>
+
+</body>
+</html>

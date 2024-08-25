@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro de Produtos</title>
+    <link rel="stylesheet" href="produtos.css">
+    
+</head>
+<body>
+
+    <h1>Registro de Produtos</h1>
+    
+
+    <div id="product-form">
+        <label for="product-name">Produto:</label>
+        <input type="text" id="product-name">
+        <label for="product-price">Preço:</label>
+        <input type="number" id="product-price">
+        <label for="product-loja">Estabelecimento:</label>
+        <input type="text" id="product-loja">
+        <label for="product-location">Localização:</label>
+        <input type="text" id="product-location">
+        <button onclick="addProduct()">Adicionar Produto</button>
+    </div>
+    
+    <div class="container">
+    <div id="product-list">
+        <h2>Lista de Produtos:</h2>
+        <ul id="product-items">
+        </ul>
+    </div>
+    </div>
+ 
+  
+
+    <script>
+        function addProduct() {
+            var productName = document.getElementById('product-name').value;
+            var productPrice = document.getElementById('product-price').value;
+            var productLocation = document.getElementById('product-location').value;
+
+            if (productName && productPrice && productLocation) {
+                var productItem = document.createElement('li');
+                productItem.className = 'product-item';
+                productItem.innerHTML = productName + ' - Preço: R$ ' + productPrice + ' - Localização: ' + productLocation;
+
+                document.getElementById('product-items').appendChild(productItem);
+
+                // Limpa os campos de entrada após a adição do produto
+                document.getElementById('product-name').value = '';
+                document.getElementById('product-price').value = '';
+                document.getElementById('product-location').value = '';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./gás/gás.css">
+    <title>Consulta de Preços de Gás</title>
+    
+</head>
+<body>
+    <a href="./HTML5.html">
+        <img src="./Fundos/logo cota preço sem escrita png.png" alt="logo do site" height="150px" width="150px" id="logo">
+        </a>
+    <div class="box">
+    <h1>Consulta de Preço de Gás</h1>
+
+    <label for="searchInput">Buscar Produto:</label>
+    <input type="text" id="searchInput" placeholder="Digite o nome do produto">
+    <button onclick="searchProducts()">Buscar</button>
+    </div>
+    <div id="resultContainer"></div>
+
+    <script>
+        // Dados de exemplo (pode ser substituído por uma chamada a uma API)
+        const products = [
+            { id: 1, name: 'Gás - Ultragaz - Sete Barras', price: 125.00},
+            { id: 2, name: 'Gás - Consigaz - Sete Barras', price: 120.80},
+            { id: 4, name: 'Gás - Supergasbras - Registro', price: 121.90 },
+            { id: 5, name: 'Gás - Plínio Gás - Pariquera açu', price: 121.00},
+            { id: 6, name: 'Gás - JC Super Mercado - Sete Barras', price: 128.00},
+            { id: 7, name: 'Gás - Nanasul Super Mercado - Sete Barras', price: 128.00},
+            { id: 8, name: 'Gás - Super Mercado Giokar - Sete Barras', price: 128.00},
+            { id: 9, name: 'Gás - Disk Gás - Registro', price: 125.00},
+            { id: 10, name: 'Gás - Liquigas - Registro', price: 126.00},
+            { id: 11, name: 'Gás - Ultragaz - Registro', price: 125.00 },
+            // Adicione mais produtos conforme necessário
+        ];
+
+        function searchProducts() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.innerHTML = '';
+
+            const filteredProducts = products.filter(product => product.name.toLowerCase().includes(searchInput));
+
+            if (filteredProducts.length > 0) {
+                filteredProducts.forEach(product => {
+                    const productDiv = document.createElement('div');
+                    productDiv.classList.add('product');
+                    productDiv.innerHTML = `<strong>${product.name}</strong> - R$ ${product.price.toFixed(2)}`;
+                    resultContainer.appendChild(productDiv);
+                });
+            } else {
+                resultContainer.innerHTML = 'Nenhum produto encontrado.';
+            }
+        }
+    </script>
+
+</body>
+</html>

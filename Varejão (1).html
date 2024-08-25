@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./varejão/varejão.css">
+    <title>Consulta de Produtos de Varejão</title>
+    
+</head>
+<body>
+    <a href="./HTML5.html">
+        <img src="./Fundos/logo cota preço sem escrita png.png" alt="logo do site" height="150px" width="150px" id="logo">
+        </a>
+    <div class="box">
+    <h1>Consulta de Produtos de Varejão</h1>
+
+    <label for="searchInput">Buscar Produto:</label>
+    <input type="text" id="searchInput" placeholder="Digite o nome do produto">
+    <button onclick="searchProducts()">Buscar</button>
+    </div>
+    <div id="resultContainer"></div>
+
+    <script>
+        // Dados de exemplo (pode ser substituído por uma chamada a uma API)
+        const products = [
+            { id: 1, name: 'Alface - Supermercado JC - Sete Barras', price: 5.99},
+            { id: 2, name: 'Alface - Sacolão Kiko - Registro', price: 5.80},
+            { id: 3, name: 'Tomate - Supermercado JC - Sete Barras', price: 6.99},
+            { id: 4, name: 'Tomate - Sacolão Kiko - Registro', price: 6.99},
+            { id: 5, name: 'Cebola - Supermercado JC - Sete Barras', price: 4.60},
+            { id: 6, name: 'Cebola - Sacolão Kiko - Registro', price: 4.55 },
+            { id: 7, name: 'Pepino - Supermercado JC - Sete Barras', price: 3.00},
+            { id: 8, name: 'Pepino - Sacolão Kiko - Registro', price: 3.00},
+            { id: 9, name: 'Repolho - Supermercado JC - Sete Barras', price: 3.00},
+            { id: 10, name: 'Repolho - Sacolão Kiko - Registro', price: 3.00},
+            // Adicione mais produtos conforme necessário
+        ];
+
+        function searchProducts() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.innerHTML = '';
+
+            const filteredProducts = products.filter(product => product.name.toLowerCase().includes(searchInput));
+
+            if (filteredProducts.length > 0) {
+                filteredProducts.forEach(product => {
+                    const productDiv = document.createElement('div');
+                    productDiv.classList.add('product');
+                    productDiv.innerHTML = `<strong>${product.name}</strong> - R$ ${product.price.toFixed(2)}`;
+                    resultContainer.appendChild(productDiv);
+                });
+            } else {
+                resultContainer.innerHTML = 'Nenhum produto encontrado.';
+            }
+        }
+    </script>
+
+</body>
+</html>

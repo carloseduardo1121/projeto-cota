@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./Supermercado/supermercado.css">
+    <title>Consulta de Produtos</title>
+    
+</head>
+<body>
+    <a href="./HTML5.html">
+        <img src="./Fundos/logo cota preço sem escrita png.png" alt="logo do site" height="150px" width="150px" id="logo">
+        </a>
+    <div class="box">
+    <h1>Consulta de Produtos de Supermercado</h1>
+
+    <label for="searchInput">Buscar Produto:</label>
+    <input type="text" id="searchInput" placeholder="Digite o nome do produto">
+    <button onclick="searchProducts()">Buscar</button>
+    </div>
+    <div id="resultContainer"></div>
+
+    <script>
+        // Dados de exemplo (pode ser substituído por uma chamada a uma API)
+        const products = [
+            { id: 1, name: 'Arroz - Supermercado da Ilha - Miracatu', price: 5.99 },
+            { id: 1, name: 'Arroz - Mercearia do Poá - Rocio', price: 5.69 },
+            { id: 1, name: 'Arroz - Mercearia Dantas - Iguape ', price: 5.49 },
+            { id: 2, name: 'Feijão - Supermercado da Ilha - Micaratu', price: 3.49 },
+            { id: 2, name: 'Feijão - Supermercado Nova Vida - Iguape', price: 3.79 },
+            { id: 2, name: 'Feijão - Mercearia do Real - Iguape', price: 4.09 },
+            { id: 3, name: 'Leite - Mercearia do Real - Iguape', price: 4.69 },
+            { id: 3, name: 'Leite - Mercearia do Dantas - Iguape', price: 4.99 },
+            { id: 3, name: 'Leite - Supermercado Lara - Iguape', price: 4.49 },
+            { id: 4, name: 'Macarrão - Supermercado Monte Carlo- Ilha Comprida', price: 2.99 },
+            { id: 4, name: 'Macarrão - Supermercado da Ilha - Micaratu', price: 3.19 },
+            { id: 4, name: 'Macarrão - Supermercado Nova Vida - Iguape', price: 2.29 },
+            { id: 5, name: 'Óleo - Supermercado Lara - Rocio', price: 4.99 },
+            { id: 5, name: 'Óleo - Supermercado Franco - Rocio', price: 5.19 },
+            { id: 5, name: 'Óleo - Supermercado Kamila - Rocio', price: 4.99 },
+            { id: 6, name: 'Açucar - Supermercado Lara - Rocio', price: 3.39 },
+            { id: 6, name: 'Açucar - Supermercado Dia - Iguape', price: 3.60 },
+            { id: 6, name: 'Açucar - Supermercado Magmaxx - Iguape', price: 3.39 },
+            { id: 7, name: 'Sal - Supermercado Lara - Rocio', price: 2.29 },
+            { id: 7, name: 'Sal - Supermercado Magmaxx - Iguape', price: 2.50 },
+            { id: 7, name: 'Sal - Supermercado Franco - Rocio', price: 2.39 },
+            { id: 8, name: 'Detergente - Mercado Baratinho - Rocio', price: 2.29 },
+            { id: 8, name: 'Detergente - Supermercado Lara - Rocio', price: 2.35 },
+            { id: 8, name: 'Detergente - Supermercado Franco - Rocio', price: 2.85 },
+            { id: 9, name: 'Água Sanitária - Supermercado Pague Menos - Registro', price: 8.99 },
+            { id: 9, name: 'Água Sanitária - Supermercado Popular - Registro', price: 12.74 },
+            { id: 9, name: 'Água Sanitária - Supermercado Santa Helena - Registro', price: 9.01 },
+            { id: 10, name: 'Amaciante - Supermercado Santa Helena - Registro', price: 9.99 },
+            { id: 10, name: 'Amaciante - Supermercado Franco - Rocio', price: 8.19 },
+            { id: 10, name: 'Amaciante - Supermercado Dia - Iguape', price: 10.09 },
+            { id: 11, name: 'Saco de Lixo - Supermercado Monte Carlo - Ilha Comprida', price: 6.90 },
+            { id: 11, name: 'Saco de Lixo - Supermercado Sol - Ilha Comprida', price: 8.50 },
+            { id: 11, name: 'Saco de Lixo - Supermercado Tio Beba - Registro', price: 6.56 },
+            { id: 12, name: 'Desinfetante - Supermercado Toyo Rei - Registro', price: 6.90 },
+            { id: 12, name: 'Desinfetante - Supermercado Amigão do Preço Bom - Registro', price: 7.48 },
+            { id: 12, name: 'Desinfetante - Supermercado Kamila - Rocio', price: 6.59 },
+            { id: 13, name: 'Álcool - Supermercado Lara - Rocio', price: 9.55 },
+            { id: 13, name: 'Álcool - Supermercado Magmaxx - Iguape', price: 9.12 },
+            { id: 13, name: 'Álcool - Supermercado Franco - Rocio', price: 9.49 },
+            { id: 14, name: 'Sabão - Mercado Nogueira - Rocio', price: 14.77 },
+            { id: 14, name: 'Sabão - Mercearia do Poá - Rocio', price: 13.49 },
+            { id: 14, name: 'Sabão - Mercado Nakamura - Iguape', price: 14.10 },
+            { id: 15, name: 'Refrigerante Coca Cola - Supermercado Sol - Ilha Comprida', price: 10.99 },
+            { id: 15, name: 'Refrigerante Coca Cola -  Supermercado Santa Helena - Registro', price: 10.55 },
+            { id: 15, name: 'Refrigerante Coca Cola -  Supermercado Kamila - Rocio', price: 10.49 },
+            { id: 16, name: 'Refrigerante Fanta -  Supermercado Lara - Rocio', price: 9.19 },
+            { id: 16, name: 'Refrigerante Fanta -  Supermercado Franco - Rocio', price: 9.25 },
+            { id: 16, name: 'Refrigerante Fanta -  Supermercado Kamila  - Rocio', price: 9.50 },
+            { id: 17, name: 'Refrigerante Xereta -  Supermercado Nova Vida - Iguape', price: 4.25 },
+            { id: 17, name: 'Refrigerante Xereta -  Supermercado Dia  - Iguape', price: 4.20 },
+            { id: 17, name: 'Refrigerante Xereta -  Supermercado Magmaxx - Iguape', price: 4.30 },
+            { id: 18, name: 'Refrigerante Sprite -  Supermercado da Ilha  - Miracatu', price: 7.29 },
+            { id: 18, name: 'Refrigerante Sprite - Mercearia do Jessé - Iguape', price: 7.19 },
+            { id: 18, name: 'Refrigerante Sprite - Merceraria do Dantas - Iguape', price: 7.50 },
+            { id: 19, name: 'Refrigerante Sukita -  Supermercado Nova Vida - Iguape', price: 6.20 },
+            { id: 19, name: 'Refrigerante Sukita -  Supermercado Tio Beba - Registro', price: 5.99 },
+            { id: 19, name: 'Refrigerante Sukita -  Supermercado Lara - Rocio', price: 4.95 },
+            { id: 20, name: 'Refrigerante Vedete - Supermercado Dia - Iguape', price: 5.39 },
+            { id: 20, name: 'Refrigerante Vedete - Supermercado Kamila - Rocio', price: 5.39 },
+            { id: 20, name: 'Refrigerante Vedete - Mercearia do Real - Iguape', price: 5.35 },
+            { id: 21, name: 'Refrigerante Pepsi - Supermercado Monte Carlo - Ilha Comprida', price: 7.45 },
+            { id: 21, name: 'Refrigerante Pepsi - Supermercado Meu Recanto - Ilha Comprida', price: 7.39 },
+            { id: 21, name: 'Refrigerante Pepsi - Mercado Araçá - Ilha Comprida', price: 7.60 },
+            // Adicione mais produtos conforme necessário
+        ];
+
+        function searchProducts() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.innerHTML = '';
+
+            const filteredProducts = products.filter(product => product.name.toLowerCase().includes(searchInput));
+
+            if (filteredProducts.length > 0) {
+                filteredProducts.forEach(product => {
+                    const productDiv = document.createElement('div');
+                    productDiv.classList.add('product');
+                    productDiv.innerHTML = `<strong>${product.name}</strong> - R$ ${product.price.toFixed(2)}`;
+                    resultContainer.appendChild(productDiv);
+                });
+            } else {
+                resultContainer.innerHTML = 'Nenhum produto encontrado.';
+            }
+        }
+    </script>
+
+</body>
+</html>
